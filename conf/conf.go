@@ -60,15 +60,15 @@ func mergeFileConfig() {
 
 func CheckAndSetConfig() {
 	CheckAndSetMessageLengthSize(Config.MessageLengthSize, 0)
-	CheckAndSetProtoBufferIdSize(Config.MessageLengthSize, 2)
+	CheckAndSetProtoBufferIdSize(Config.ProtoBufferIdSize, 2)
 }
 
 func CheckAndSetMessageLengthSize(expectedSize, oldSize int)  {
-	if expectedSize!= 0 &&
+	if expectedSize != 0 &&
 		expectedSize != 1 &&
 		expectedSize != 2 &&
 		expectedSize != 4 {
-		output := "Invalid message length size %d, must be 0, 1, 2 or 4, keep value %d"
+		output := "Invalid message length size %d, must be 0, 1, 2 or 4, keep value %d\n"
 		fmt.Printf(output, expectedSize, oldSize)
 		Config.MessageLengthSize = oldSize
 	} else {
@@ -81,7 +81,7 @@ func CheckAndSetProtoBufferIdSize(expectedSize, oldSize int)  {
 	if expectedSize != 1 &&
 		expectedSize != 2 &&
 		expectedSize != 4 {
-		output := "Invalid protobuf id size %d, must be 1, 2 or 4, ignored and use default value %d"
+		output := "Invalid protobuf id size %d, must be 1, 2 or 4, keep value %d\n"
 		fmt.Printf(output, expectedSize, oldSize)
 		Config.ProtoBufferIdSize = oldSize
 	} else {
