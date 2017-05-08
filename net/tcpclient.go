@@ -1,8 +1,6 @@
 package net
 
 import (
-	"errors"
-	"fmt"
 	"log"
 	"net"
 	"github.com/carsonsx/tcptester/conf"
@@ -22,6 +20,7 @@ type TCPClient struct {
 	reader      Reader
 	parser      Parser
 	ReceivedCount int
+	writeChan chan []byte
 }
 
 func (c *TCPClient) Connect() error {
@@ -38,8 +37,11 @@ func (c *TCPClient) Connect() error {
 	c.connected = true
 
 	if !conf.Config.Silence {
-		c.goReceiveData()
+		c.goReadData()
 	}
+
+	c.writeChan = make(chan []byte, 100)
+	c.goWriteData()
 
 	return nil
 }
@@ -57,6 +59,7 @@ func (c *TCPClient) Close() error {
 	if err != nil {
 		return err
 	}
+	close(c.writeChan)
 	if c.CloseListen != nil {
 		c.connected = false
 		c.CloseListen()
@@ -64,7 +67,7 @@ func (c *TCPClient) Close() error {
 	return err
 }
 
-func (c *TCPClient) goReceiveData() {
+func (c *TCPClient) goReadData() {
 	go func() {
 		for {
 			raw, data, err := c.GetReader().Read(c)
@@ -83,6 +86,17 @@ func (c *TCPClient) goReceiveData() {
 	}()
 }
 
+func (c *TCPClient) goWriteData() {
+	go func() {
+		for data := range c.writeChan {
+			n, err := c.conn.Write(data)
+			if err != nil || n != len(data) {
+				c.Close()
+				break
+			}
+		}
+	}()
+}
 
 func (c *TCPClient) WriteData(v interface{}) ([]byte, error) {
 	data, err := c.parser.Marshal(v)
@@ -105,14 +119,8 @@ func (c *TCPClient) Write(data []byte) ([]byte, error) {
 	//	fmt.Printf("%d", b)
 	//}
 	//fmt.Println()
-	n, err := c.conn.Write(data)
-	if err != nil {
-		c.Close()
-		return nil, err
-	} else if n != len(data) {
-		c.Close()
-		return nil, errors.New(fmt.Sprintf("sent failed: expected length %d, actual length %d \n", len(data), n))
-	}
+
+	c.writeChan <- data
 
 	if !conf.Config.Silence && conf.Config.SyncTime > 0 {
 		time.Sleep(time.Duration(conf.Config.SyncTime) * time.Second)
