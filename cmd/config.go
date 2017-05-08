@@ -20,7 +20,7 @@ func (c *ConfigCommand) Usage() string {
 }
 
 func (c *ConfigCommand) NeedConnected() bool {
-	return true
+	return false
 }
 
 func (c *ConfigCommand) MaxArgCount() int {
