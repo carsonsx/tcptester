@@ -196,11 +196,13 @@ func (c *LoadCommand) SendTestDataGroup(tcpClient *net.TCPClient, clientId int, 
 
 func (c *LoadCommand) SendTestData(tcpClient *net.TCPClient, clientId int, testData *TestData) error {
 	var err error
+	var data []byte
 	if testData.ClientData != nil {
-		_, err = tcpClient.Write(testData.ClientData[clientId-1])
+		data = testData.ClientData[clientId-1]
 	} else {
-		_, err = tcpClient.Write(testData.GlobalData)
+		data = testData.GlobalData
 	}
+	_, err = tcpClient.Write(data)
 	if err != nil {
 		fmt.Printf("client[%d] send data error: %v", clientId, err)
 	}
