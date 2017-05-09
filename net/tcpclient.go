@@ -59,9 +59,9 @@ func (c *TCPClient) Close() error {
 	if err != nil {
 		return err
 	}
+	c.connected = false
 	close(c.writeChan)
 	if c.CloseListen != nil {
-		c.connected = false
 		c.CloseListen()
 	}
 	return err

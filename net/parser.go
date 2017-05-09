@@ -67,7 +67,7 @@ func (p *ProtobufParser) Register(args ...interface{}) error {
 	}
 	p.id_type_map[_id] = _type
 	p.type_id_map[_type] = _id
-	log.Printf("reistered id[%d] and type[%v]", _id, _type)
+	//log.Printf("reistered id[%d] and type[%v]", _id, _type)
 	return nil
 }
 
