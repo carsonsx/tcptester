@@ -8,7 +8,7 @@ func AddUint8ToBytePrefix(raw []byte, prefix uint8) []byte {
 
 func AddUint16ToBytePrefix(raw []byte, prefix uint16, littleEndian bool) []byte {
 	l := 2
-	data := make([]byte, l + len(raw))
+	data := make([]byte, l+len(raw))
 	if littleEndian {
 		binary.LittleEndian.PutUint16(data, prefix)
 	} else {
@@ -20,7 +20,7 @@ func AddUint16ToBytePrefix(raw []byte, prefix uint16, littleEndian bool) []byte 
 
 func AddUint32ToBytePrefix(raw []byte, prefix uint32, littleEndian bool) []byte {
 	l := 4
-	data := make([]byte, l + len(raw))
+	data := make([]byte, l+len(raw))
 	if littleEndian {
 		binary.LittleEndian.PutUint32(data, prefix)
 	} else {

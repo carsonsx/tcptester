@@ -64,11 +64,10 @@ func (c *Help2Command) Usage() string {
 	return "usage: ?\n       ? cmd"
 }
 
-func init()  {
-	help := new( HelpCommand)
+func init() {
+	help := new(HelpCommand)
 	RegisterInstance(help)
-	help2 := new (Help2Command)
+	help2 := new(Help2Command)
 	help2.HelpCommand = help
 	RegisterInstance(help2)
 }
-

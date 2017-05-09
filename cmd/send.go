@@ -1,10 +1,10 @@
 package cmd
 
 import (
-	"github.com/carsonsx/tcptester/net"
-	"strings"
 	"github.com/carsonsx/tcptester/cmd/input"
 	"github.com/carsonsx/tcptester/conf"
+	"github.com/carsonsx/tcptester/net"
+	"strings"
 )
 
 type SendCommand struct {
@@ -43,7 +43,6 @@ func (c *SendCommand) Run(tcpClient *net.TCPClient, args ...string) error {
 	return err
 }
 
-func init()  {
+func init() {
 	RegisterInstance(new(SendCommand))
 }
-

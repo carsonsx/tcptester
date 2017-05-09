@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/carsonsx/tcptester/net"
 	"github.com/carsonsx/tcptester/conf"
+	"github.com/carsonsx/tcptester/net"
 )
 
 type DisconnectCommand struct {
@@ -38,7 +38,6 @@ func (c *DisconnectCommand) Run(tcpClient *net.TCPClient, args ...string) error 
 	return tcpClient.Close()
 }
 
-func init()  {
+func init() {
 	RegisterInstance(new(DisconnectCommand))
 }
-

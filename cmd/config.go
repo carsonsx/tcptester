@@ -1,10 +1,10 @@
 package cmd
 
 import (
-	"fmt"
-	"github.com/carsonsx/tcptester/net"
-	"github.com/carsonsx/tcptester/conf"
 	"encoding/json"
+	"fmt"
+	"github.com/carsonsx/tcptester/conf"
+	"github.com/carsonsx/tcptester/net"
 	"strconv"
 )
 
@@ -108,7 +108,6 @@ func (c *ConfigCommand) Run(tcpClient *net.TCPClient, args ...string) error {
 	return nil
 }
 
-func init()  {
+func init() {
 	RegisterInstance(new(ConfigCommand))
 }
-

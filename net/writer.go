@@ -1,12 +1,10 @@
 package net
 
-
 type Writer interface {
 	Write(*TCPClient, interface{}) (data []byte, err error)
 }
 
 type StringWriter struct {
-
 }
 
 func (w *StringWriter) Write(c *TCPClient, v interface{}) (data []byte, err error) {
@@ -15,7 +13,6 @@ func (w *StringWriter) Write(c *TCPClient, v interface{}) (data []byte, err erro
 }
 
 type ProtobufWriter struct {
-
 }
 
 func (w *ProtobufWriter) Write(c *TCPClient, v interface{}) (data []byte, err error) {

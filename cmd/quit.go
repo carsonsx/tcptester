@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"fmt"
-	"os"
 	"github.com/carsonsx/tcptester/net"
+	"os"
 )
 
 type QuitCommand struct {
@@ -39,7 +39,6 @@ func (c *QuitCommand) Run(tcpClient *net.TCPClient, args ...string) error {
 	return nil
 }
 
-func init()  {
+func init() {
 	RegisterInstance(new(QuitCommand))
 }
-

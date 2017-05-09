@@ -1,25 +1,25 @@
 package main
 
-import "github.com/carsonsx/tcptester/net"
 import (
 	"bufio"
 	"flag"
 	"fmt"
-	"os"
-	"strings"
 	"github.com/carsonsx/tcptester/cmd"
 	"github.com/carsonsx/tcptester/conf"
+	"github.com/carsonsx/tcptester/net"
+	"os"
+	"strings"
 )
 
-var tcpClient = new (net.TCPClient)
+var tcpClient = new(net.TCPClient)
 
 func main() {
 
 	flag.BoolVar(&conf.Config.Silence, "silence", conf.Config.Silence, "enable or disable receive data")
 	flag.IntVar(&conf.Config.MessageLengthSize, "message_length_size", conf.Config.MessageLengthSize, "set message length size, if 0 then add nothing for message head")
-	flag.IntVar(&conf.Config.ProtoBufferIdSize, "proto_buffer_id_size", conf.Config.ProtoBufferIdSize,"set protobuf id size")
+	flag.IntVar(&conf.Config.ProtoBufferIdSize, "proto_buffer_id_size", conf.Config.ProtoBufferIdSize, "set protobuf id size")
 	flag.BoolVar(&conf.Config.LittleEndian, "little_endian", conf.Config.LittleEndian, "use little endian for integer encode")
-	flag.IntVar(&conf.Config.SyncTime, "sync_time", 1,"time for receiving data one by one")
+	flag.IntVar(&conf.Config.SyncTime, "sync_time", 1, "time for receiving data one by one")
 	flag.StringVar(&conf.Config.Reader, "reader", conf.Config.Reader, "set reader with line|protobuf")
 	flag.StringVar(&conf.Config.Parser, "parser", conf.Config.Parser, "set parser with string|protobuf")
 	flag.StringVar(&conf.Config.InputMode, "input_mode", conf.Config.Parser, "set input mode string|hex")
@@ -43,7 +43,7 @@ func main() {
 	})
 
 	if flag.NArg() > 0 {
-		err := new(cmd.ConnectCommand).Run(tcpClient, flag.Arg(flag.NArg() - 1))
+		err := new(cmd.ConnectCommand).Run(tcpClient, flag.Arg(flag.NArg()-1))
 		if err != nil {
 			os.Exit(1)
 			return
@@ -57,12 +57,12 @@ func main() {
 	tcpClient.Close()
 }
 
-func setDisconnectData()  {
+func setDisconnectData() {
 	conf.RunData.NetworkStatus = conf.TCP_TESTER_NOT_CONNECTED
 	conf.RunData.ConsolePrompt = conf.TCP_TESTER_NAME
 }
 
-func printPrompt()  {
+func printPrompt() {
 	fmt.Print(conf.RunData.ConsolePrompt + "> ")
 }
 

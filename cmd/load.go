@@ -25,7 +25,7 @@ type LoadData struct {
 type TestData struct {
 	GlobalData []byte
 	ClientData [][]byte
-	SleepTime int
+	SleepTime  int
 }
 
 type loadStat struct {
@@ -180,8 +180,7 @@ func (c *LoadCommand) load(tcpClient *net.TCPClient, clientId int, loadData *Loa
 	done <- stat
 }
 
-
-func (c *LoadCommand) SendTestDataGroup(tcpClient *net.TCPClient, clientId int, testDataGroup []*TestData, stat *loadStat)  {
+func (c *LoadCommand) SendTestDataGroup(tcpClient *net.TCPClient, clientId int, testDataGroup []*TestData, stat *loadStat) {
 
 	if testDataGroup == nil || len(testDataGroup) == 0 {
 		return

@@ -1,10 +1,10 @@
 package sync
 
-import "828/gamesrv-ar/util"
+import "github.com/carsonsx/tcptester/util"
 
 var _functions = util.NewQueue()
 
-func Call(functions ...func())  {
+func Call(functions ...func()) {
 	for _, function := range functions {
 		_functions.Offer(function)
 	}
@@ -13,11 +13,11 @@ func Call(functions ...func())  {
 
 var done = make(chan bool)
 
-func Wait()  {
+func Wait() {
 	<-done
 }
 
-func Done()  {
+func Done() {
 	if _functions.Len() > 0 {
 		_functions.Poll().(func())()
 	} else {
@@ -25,6 +25,6 @@ func Done()  {
 	}
 }
 
-func DoneAll()  {
+func ForceDone() {
 	done <- true
 }

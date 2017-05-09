@@ -3,8 +3,8 @@ package conf
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"github.com/carsonsx/tcptester/cmd/input"
+	"io/ioutil"
 )
 
 const (
@@ -20,7 +20,7 @@ type config struct {
 	SyncTime          int    `json:"sync_time"`
 	Reader            string `json:"reader"`
 	Parser            string `json:"parser"`
-	InputMode         string  `json:"input_mode"`
+	InputMode         string `json:"input_mode"`
 }
 
 var Config config
@@ -63,7 +63,7 @@ func CheckAndSetConfig() {
 	CheckAndSetProtoBufferIdSize(Config.ProtoBufferIdSize, 2)
 }
 
-func CheckAndSetMessageLengthSize(expectedSize, oldSize int)  {
+func CheckAndSetMessageLengthSize(expectedSize, oldSize int) {
 	if expectedSize != 0 &&
 		expectedSize != 1 &&
 		expectedSize != 2 &&
@@ -76,8 +76,7 @@ func CheckAndSetMessageLengthSize(expectedSize, oldSize int)  {
 	}
 }
 
-
-func CheckAndSetProtoBufferIdSize(expectedSize, oldSize int)  {
+func CheckAndSetProtoBufferIdSize(expectedSize, oldSize int) {
 	if expectedSize != 1 &&
 		expectedSize != 2 &&
 		expectedSize != 4 {

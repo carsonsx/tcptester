@@ -11,7 +11,6 @@ type Converter interface {
 	Convert(input string) (data []byte, err error)
 }
 
-
 func GetInstance(name string) Converter {
 	return converters[name]
 }
@@ -21,7 +20,6 @@ func RegisterInstance(converter Converter) {
 }
 
 type StringConverter struct {
-
 }
 
 func (c *StringConverter) Name() string {
@@ -32,11 +30,8 @@ func (c *StringConverter) Convert(input string) (data []byte, err error) {
 	return []byte(input), nil
 }
 
-
 type HexadecimalConverter struct {
-
 }
-
 
 func (c *HexadecimalConverter) Name() string {
 	return "hex"
@@ -46,11 +41,11 @@ func (c *HexadecimalConverter) Convert(input string) (data []byte, err error) {
 
 	//fmt.Printf("input: %s\n", input)
 
-	data = make([]byte, len(input) / 2)
+	data = make([]byte, len(input)/2)
 	l := len(data)
 	var n int64
 	for i := 0; i < l; i++ {
-			n, err = strconv.ParseInt(input[i*2:i*2+2], 16, 0)
+		n, err = strconv.ParseInt(input[i*2:i*2+2], 16, 0)
 		if err != nil {
 			data = nil
 			return
@@ -60,7 +55,7 @@ func (c *HexadecimalConverter) Convert(input string) (data []byte, err error) {
 	return
 }
 
-func init()  {
+func init() {
 	RegisterInstance(new(StringConverter))
 	RegisterInstance(new(HexadecimalConverter))
 }

@@ -1,10 +1,10 @@
 package net
 
 import (
-	"log"
-	"net"
 	"github.com/carsonsx/tcptester/conf"
 	"github.com/carsonsx/tcptester/util"
+	"log"
+	"net"
 	"time"
 )
 
@@ -13,14 +13,14 @@ func init() {
 }
 
 type TCPClient struct {
-	Addr        string
-	conn        net.Conn
-	connected   bool
-	CloseListen func()
-	reader      Reader
-	parser      Parser
+	Addr          string
+	conn          net.Conn
+	connected     bool
+	CloseListen   func()
+	reader        Reader
+	parser        Parser
 	ReceivedCount int
-	writeChan chan []byte
+	writeChan     chan []byte
 }
 
 func (c *TCPClient) Connect() error {
@@ -45,7 +45,6 @@ func (c *TCPClient) Connect() error {
 
 	return nil
 }
-
 
 func (c *TCPClient) IsConnected() bool {
 	return c.connected

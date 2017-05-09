@@ -1,14 +1,14 @@
 package net
 
 import (
-	"github.com/golang/protobuf/proto"
-	"log"
-	"reflect"
 	"encoding/binary"
 	"errors"
 	"fmt"
 	"github.com/carsonsx/tcptester/conf"
 	"github.com/carsonsx/tcptester/util"
+	"github.com/golang/protobuf/proto"
+	"log"
+	"reflect"
 )
 
 type Parser interface {
@@ -42,7 +42,7 @@ func (p *StringParser) Unmarshal(data []byte) (v interface{}, err error) {
 	return
 }
 
-func (p *StringParser) Marshal(v interface{}) (data []byte, err error){
+func (p *StringParser) Marshal(v interface{}) (data []byte, err error) {
 	data = []byte(v.(string))
 	err = nil
 	return
@@ -52,7 +52,7 @@ type ProtobufParser struct {
 	id_type_map map[uint32]reflect.Type
 	type_id_map map[reflect.Type]uint32
 	handlers    map[reflect.Type]func(interface{})
-	handler func(interface{})
+	handler     func(interface{})
 }
 
 func (p *ProtobufParser) Register(args ...interface{}) error {
