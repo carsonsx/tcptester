@@ -5,7 +5,6 @@ import (
 	"sync"
 )
 
-
 type Queue interface {
 	IsEmpty() bool
 	Offers(a []interface{})
@@ -16,13 +15,12 @@ type Queue interface {
 	Len() int
 }
 
-
 type unsafeQueue struct {
 	data *list.List
 }
 
 func NewQueue() *unsafeQueue {
-	q := new (unsafeQueue)
+	q := new(unsafeQueue)
 	q.data = list.New()
 	return q
 }
@@ -32,7 +30,7 @@ func (q *unsafeQueue) IsEmpty() bool {
 }
 
 func (q *unsafeQueue) Offers(a []interface{}) {
-	for _, e:= range a {
+	for _, e := range a {
 		q.Offer(e)
 	}
 }
@@ -68,15 +66,14 @@ func (q *unsafeQueue) Len() int {
 	return q.data.Len()
 }
 
-
 func NewSafeQueue() *safeQueue {
-	q := new (safeQueue)
+	q := new(safeQueue)
 	q.queue = NewQueue()
 	return q
 }
 
 type safeQueue struct {
-	queue *unsafeQueue
+	queue   *unsafeQueue
 	rwMutex sync.RWMutex
 }
 

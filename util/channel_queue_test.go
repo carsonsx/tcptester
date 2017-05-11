@@ -6,12 +6,10 @@ import (
 
 func TestChannelQueue(t *testing.T) {
 
-
 	q := NewChannelQueue(10)
 	q.Offer("a")
 	q.Offer("b")
 	q.Offer("c")
-
 
 	if q.Poll() != "a" {
 		t.FailNow()

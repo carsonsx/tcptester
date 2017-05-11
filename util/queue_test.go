@@ -10,7 +10,6 @@ func TestQueue(t *testing.T) {
 	q.Offer("b")
 	q.Offer("c")
 
-
 	if q.Poll() != "a" {
 		t.FailNow()
 	}
@@ -37,7 +36,7 @@ func TestQueue(t *testing.T) {
 		t.FailNow()
 	}
 
-	if q.Len()  != 0 {
+	if q.Len() != 0 {
 		t.FailNow()
 	}
 

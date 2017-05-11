@@ -115,7 +115,7 @@ func (p *ProtobufParser) Unmarshal(data []byte) (v interface{}, err error) {
 		v = reflect.New(t.Elem()).Interface()
 		err = proto.UnmarshalMerge(data[conf.Config.ProtoBufferIdSize:], v.(proto.Message))
 		if err == nil {
-			log.Printf("rcvd data[%v]: %v", reflect.TypeOf(v), v)
+			log.Printf("rcvd data[%v] - %v", reflect.TypeOf(v), v)
 			if p.handler != nil {
 				p.handler(v)
 			}

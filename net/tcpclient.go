@@ -5,8 +5,8 @@ import (
 	"github.com/carsonsx/tcptester/util"
 	"log"
 	"net"
-	"time"
 	"reflect"
+	"time"
 )
 
 func init() {
@@ -99,7 +99,7 @@ func (c *TCPClient) goWriteData() {
 }
 
 func (c *TCPClient) WriteData(v interface{}) ([]byte, error) {
-	log.Printf("try sending data[%v]: %v", reflect.TypeOf(v), v)
+	log.Printf("try sending data[%v] - %v", reflect.TypeOf(v), v)
 	data, err := c.parser.Marshal(v)
 	if err != nil {
 		return nil, err
