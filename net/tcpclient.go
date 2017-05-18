@@ -7,6 +7,7 @@ import (
 	"net"
 	"reflect"
 	"time"
+	"encoding/json"
 )
 
 func init() {
@@ -99,7 +100,8 @@ func (c *TCPClient) goWriteData() {
 }
 
 func (c *TCPClient) WriteData(v interface{}) ([]byte, error) {
-	log.Printf("try sending data[%v] - %v", reflect.TypeOf(v), v)
+	bytes, _ := json.Marshal(v)
+	log.Printf("sending %v - %s", reflect.TypeOf(v), string(bytes))
 	data, err := c.parser.Marshal(v)
 	if err != nil {
 		return nil, err

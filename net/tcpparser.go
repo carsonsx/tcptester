@@ -9,6 +9,7 @@ import (
 	"github.com/golang/protobuf/proto"
 	"log"
 	"reflect"
+	"encoding/json"
 )
 
 type Parser interface {
@@ -115,12 +116,12 @@ func (p *ProtobufParser) Unmarshal(data []byte) (v interface{}, err error) {
 		v = reflect.New(t.Elem()).Interface()
 		err = proto.UnmarshalMerge(data[conf.Config.ProtoBufferIdSize:], v.(proto.Message))
 		if err == nil {
-			log.Printf("rcvd data[%v] - %v", reflect.TypeOf(v), v)
-			if p.handler != nil {
-				p.handler(v)
-			}
+			bytes, _ := json.Marshal(v)
+			log.Printf("rcvd %v - %v", reflect.TypeOf(v), string(bytes))
 			if handler, ok := p.handlers[t]; ok {
 				handler(v)
+			} else if p.handler != nil {
+				p.handler(v)
 			}
 		}
 	}

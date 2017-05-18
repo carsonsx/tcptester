@@ -1,6 +1,9 @@
 package sync
 
-import "github.com/carsonsx/tcptester/util"
+import (
+	"github.com/carsonsx/tcptester/util"
+	"time"
+)
 
 var _functions = util.NewQueue()
 
@@ -12,19 +15,24 @@ func Call(functions ...func()) {
 }
 
 var done = make(chan bool)
+var closed bool
 
-func Wait() {
+func Wait(delay ...int) {
 	<-done
+	if len(delay) > 0 && delay[0] > 0 {
+		time.Sleep(time.Duration(delay[0]) * time.Second)
+	}
+	closed = true
 }
 
-func Done() {
-	if _functions.Len() > 0 {
+func Done(force ...bool) {
+	if len(force) > 0 && force[0] {
+		done <- true
+	} else if _functions.Len() > 0 {
 		_functions.Poll().(func())()
 	} else {
-		done <- true
+		if !closed {
+			done <- true
+		}
 	}
-}
-
-func ForceDone() {
-	done <- true
 }
