@@ -8,6 +8,7 @@ import (
 	"reflect"
 	"time"
 	"encoding/json"
+	"fmt"
 )
 
 func init() {
@@ -81,7 +82,7 @@ func (c *TCPClient) goReadData() {
 				break
 			}
 			c.ReceivedCount++
-			//fmt.Printf("%v%d\ns", data, c.ReceivedCount)
+			fmt.Printf("%v", data)
 			c.GetParser().Unmarshal(data)
 		}
 	}()
