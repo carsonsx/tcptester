@@ -3,6 +3,7 @@ package sync
 import (
 	"github.com/carsonsx/tcptester/util"
 	"time"
+	"github.com/carsonsx/log4g"
 )
 
 var _functions = util.NewQueue()
@@ -31,6 +32,7 @@ func Done(force ...bool) {
 	} else if _functions.Len() > 0 {
 		_functions.Poll().(func())()
 	} else {
+		log4g.Info("all calls done")
 		if !closed {
 			done <- true
 		}

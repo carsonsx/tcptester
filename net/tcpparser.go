@@ -3,13 +3,13 @@ package net
 import (
 	"encoding/binary"
 	"errors"
-	"fmt"
 	"github.com/carsonsx/tcptester/conf"
 	"github.com/carsonsx/tcptester/util"
 	"github.com/golang/protobuf/proto"
-	"log"
-	"reflect"
 	"encoding/json"
+	"fmt"
+	"reflect"
+	"github.com/carsonsx/log4g"
 )
 
 type Parser interface {
@@ -117,7 +117,7 @@ func (p *ProtobufParser) Unmarshal(data []byte) (v interface{}, err error) {
 		err = proto.UnmarshalMerge(data[conf.Config.ProtoBufferIdSize:], v.(proto.Message))
 		if err == nil {
 			bytes, _ := json.Marshal(v)
-			log.Printf("rcvd %v - %v", reflect.TypeOf(v), string(bytes))
+			log4g.Debug("unmarshal %v - %v", reflect.TypeOf(v), string(bytes))
 			if handler, ok := p.handlers[t]; ok {
 				handler(v)
 			} else if p.handler != nil {

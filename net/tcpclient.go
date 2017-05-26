@@ -3,17 +3,12 @@ package net
 import (
 	"github.com/carsonsx/tcptester/conf"
 	"github.com/carsonsx/tcptester/util"
-	"log"
 	"net"
 	"reflect"
 	"time"
 	"encoding/json"
-	"fmt"
+	"github.com/carsonsx/log4g"
 )
-
-func init() {
-	log.SetFlags(log.Lshortfile)
-}
 
 type TCPClient struct {
 	Addr          string
@@ -82,7 +77,6 @@ func (c *TCPClient) goReadData() {
 				break
 			}
 			c.ReceivedCount++
-			fmt.Printf("%v", data)
 			c.GetParser().Unmarshal(data)
 		}
 	}()
@@ -102,7 +96,7 @@ func (c *TCPClient) goWriteData() {
 
 func (c *TCPClient) WriteData(v interface{}) ([]byte, error) {
 	bytes, _ := json.Marshal(v)
-	log.Printf("sending %v - %s", reflect.TypeOf(v), string(bytes))
+	log4g.Debug("sending %v - %s", reflect.TypeOf(v), string(bytes))
 	data, err := c.parser.Marshal(v)
 	if err != nil {
 		return nil, err
